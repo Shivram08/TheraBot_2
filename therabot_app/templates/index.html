@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TheraBot 🧠</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('{{ url_for("static", filename="bc.png") }}');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      margin-top: 60px;
+      padding: 25px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 2px solid transparent;
+      transition: border 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    /* Emotion Themes */
+    .anger    { border: 2px solid #e53935; box-shadow: 0 0 12px #e53935; }
+    .sadness  { border: 2px solid #1e88e5; box-shadow: 0 0 12px #1e88e5; }
+    .joy      { border: 2px solid #43a047; box-shadow: 0 0 12px #43a047; }
+    .confusion{ border: 2px solid #fdd835; box-shadow: 0 0 12px #fdd835; }
+    .love     { border: 2px solid #d81b60; box-shadow: 0 0 12px #d81b60; }
+    .neutral  { border: 2px solid #bdbdbd; box-shadow: 0 0 12px #bdbdbd; }
+
+    h2 {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+    }
+
+    h2 span {
+      margin-right: 10px;
+      font-size: 1.5rem;
+    }
+
+    #chatbox {
+      background-color: rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 15px;
+      border-radius: 12px;
+      height: 300px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+    }
+
+    .bubble {
+      padding: 10px 14px;
+      margin: 8px 0;
+      border-radius: 8px;
+      max-width: 90%;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .user {
+      background-color: #e0f7fa;
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .bot {
+      background-color: #e8f5e9;
+      margin-right: auto;
+      text-align: left;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background: linear-gradient(145deg, #6a11cb, #2575fc);
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(145deg, #5b0eb8, #1f61d1);
+    }
+
+    .reset-btn {
+      background: #e53935;
+    }
+
+    .reset-btn:hover {
+      background: #c62828;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="chatContainer">
+    <h2><span>🧠</span> TheraBot</h2>
+    <div id="chatbox"></div>
+    <input type="text" id="userInput" placeholder="Tell me what's on your mind...">
+    <button onclick="sendMessage()">Send</button>
+    <button class="reset-btn" onclick="resetChat()">Reset</button>
+  </div>
+
+  <script>
+    async function sendMessage() {
+      const inputField = document.getElementById("userInput");
+      const text = inputField.value.trim();
+      if (!text) return;
+
+      appendMessage("You", text, "user");
+
+      const response = await fetch("/message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text })
+      });
+
+      const data = await response.json();
+
+      appendMessage("TheraBot", data.response, "bot");
+
+      const chatContainer = document.getElementById("chatContainer");
+      chatContainer.classList.remove("anger", "joy", "sadness", "neutral", "confusion", "love");
+      if (data.emotion) {
+        chatContainer.classList.add(data.emotion.toLowerCase());
+      }
+
+      inputField.value = "";
+    }
+
+    function appendMessage(sender, message, type) {
+      const chatbox = document.getElementById("chatbox");
+      const div = document.createElement("div");
+      div.className = `bubble ${type}`;
+      div.innerText = `${message}`;
+      chatbox.appendChild(div);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    async function resetChat() {
+      await fetch("/reset", { method: "POST" });
+      document.getElementById("chatbox").innerHTML = "";
+    }
+  </script>
+</body>
+</html>
