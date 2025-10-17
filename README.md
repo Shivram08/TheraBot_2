@@ -51,35 +51,35 @@ TheraBot is an AI-driven virtual therapist that detects emotions and sarcasm in 
 ## Setup
 
 ### 1) Create and activate a virtual environment
-\`\`\`bash
+```bash
 python -m venv venv
 # Windows
 venv\Scripts\activate
 # macOS / Linux
 source venv/bin/activate
-\`\`\`
+```
 
 ### 2) Install dependencies
-\`\`\`bash
+```bash
 pip install -r requirements.txt
-\`\`\`
+```
 
 ---
 
 ## Project Structure
-\`\`\`
+```
 therabot/
-├─ models/
-│  ├─ Emotion_model/
-│  ├─ sarcasm_model/
-│  └─ therabot-distilgpt2/
-├─ static/              # CSS, images, etc.
-├─ templates/
-│  └─ index.html
-├─ app.py
-├─ requirements.txt
-└─ README.md
-\`\`\`
+├── models/
+│   ├── Emotion_model/
+│   ├── sarcasm_model/
+│   └── therabot-distilgpt2/
+├── static/              # CSS, images, etc.
+├── templates/
+│   └── index.html
+├── app.py
+├── requirements.txt
+└── README.md
+```
 
 ---
 
@@ -100,14 +100,14 @@ Ensure all model files are present in their respective directories before runnin
 
 > If your entrypoint lives in a subfolder, `cd` there first (e.g., `cd therabot_app`).
 
-\`\`\`bash
+```bash
 python app.py
-\`\`\`
+```
 
 Then open:
-\`\`\`
+```
 http://127.0.0.1:5000
-\`\`\`
+```
 
 ---
 
@@ -132,11 +132,11 @@ http://127.0.0.1:5000
 
 ## Configuration Notes
 Some model paths may be configured as absolute paths in `app.py`. Update them to match your environment:
-\`\`\`python
+```python
 EMOTION_MODEL_PATH = "path/to/models/Emotion_model"
 SARCASM_MODEL_PATH = "path/to/models/sarcasm_model"
 GEN_MODEL_PATH     = "path/to/models/therabot-distilgpt2"
-\`\`\`
+```
 
 ---
 
