@@ -1,91 +1,144 @@
-# TheraBot
+# 🧠 TheraBot
+**An AI-Powered Therapeutic Chatbot with Emotion and Sarcasm Detection**
 
-TheraBot is an AI-powered therapeutic chatbot that can detect emotions and sarcasm in user messages and provide appropriate responses. The bot uses advanced natural language processing models to understand and respond to user input in a therapeutic context.
+TheraBot is an AI-driven virtual therapist that detects emotions and sarcasm in user messages and generates context-aware, empathetic responses in real time.
+
+---
+
+## Table of Contents
+- [Features](#features)
+- [Application Interface](#application-interface)
+- [Prerequisites](#prerequisites)
+- [Setup](#setup)
+- [Project Structure](#project-structure)
+- [Required Models](#required-models)
+- [Running the Application](#running-the-application)
+- [Usage](#usage)
+- [Technical Details](#technical-details)
+- [Configuration Notes](#configuration-notes)
+- [License & Disclaimer](#license--disclaimer)
+
+---
 
 ## Features
+- 💬 **Real-time chat interface**
+- 😌 **Emotion detection** across up to 10 emotions
+- 😏 **Sarcasm detection**
+- 🧠 **Context-aware responses** (fine-tuned DistilGPT2)
+- 🕒 **Chat history management**
+- 📱 **Responsive web interface**
 
-- Real-time chat interface
-- Emotion detection across 10 different emotions
-- Sarcasm detection
-- Context-aware responses
-- Chat history management
-- Responsive web interface
+---
+
+## Application Interface
+
+> Place these images in the same folder as `README.md` (or update the paths).
+
+### Example 1 — Emotional Support Interaction  
+![TheraBot UI 1](./bd02dff9-e01b-4a7b-8cd6-c56fb2723365.png)
+
+### Example 2 — Empathetic Conversation  
+![TheraBot UI 2](./6d2ce302-766d-4492-9379-dbf05791d159.png)
+
+---
 
 ## Prerequisites
+- Python **3.7+**
+- **CUDA-compatible GPU** (recommended) or CPU
 
-- Python 3.7+
-- CUDA-compatible GPU (recommended) or CPU
+---
 
+## Setup
 
-## Instructions
-
-1. Create and activate a virtual environment (recommended):
-```bash
+### 1) Create and activate a virtual environment
+\`\`\`bash
 python -m venv venv
-# On Windows
+# Windows
 venv\Scripts\activate
-# On Unix or MacOS
+# macOS / Linux
 source venv/bin/activate
-```
+\`\`\`
 
-2. Install the required packages:
-
-```bash
+### 2) Install dependencies
+\`\`\`bash
 pip install -r requirements.txt
-```
+\`\`\`
+
+---
+
 ## Project Structure
+\`\`\`
+therabot/
+├─ models/
+│  ├─ Emotion_model/
+│  ├─ sarcasm_model/
+│  └─ therabot-distilgpt2/
+├─ static/              # CSS, images, etc.
+├─ templates/
+│  └─ index.html
+├─ app.py
+├─ requirements.txt
+└─ README.md
+\`\`\`
+
+---
 
 ## Required Models
+The application requires several pre-trained models:
 
-The application requires several pre-trained models to function:
-- Emotion detection model (located in `models/Emotion_model/`)
-- Sarcasm detection model (located in `models/sarcasm_model/`)
-- Response generation model (fine-tuned DistilGPT2, located in `models/therabot-distilgpt2/`)
+| Model | Directory |
+| --- | --- |
+| Emotion detection | `models/Emotion_model/` |
+| Sarcasm detection | `models/sarcasm_model/` |
+| Response generation (fine-tuned DistilGPT2) | `models/therabot-distilgpt2/` |
 
-Make sure all model files are present in their respective directories before running the application.
+Ensure all model files are present in their respective directories before running.
+
+---
 
 ## Running the Application
 
-1. Navigate to the application directory:
-```bash
-cd therabot_app
-```
+> If your entrypoint lives in a subfolder, `cd` there first (e.g., `cd therabot_app`).
 
-2. Start the Flask server:
-```bash
+\`\`\`bash
 python app.py
-```
+\`\`\`
 
-3. Open your web browser and visit:
-```
-http://localhost:5000
-```
+Then open:
+\`\`\`
+http://127.0.0.1:5000
+\`\`\`
+
+---
 
 ## Usage
+1. Open the web interface in your browser.  
+2. Type a message in the chat input.  
+3. TheraBot will:
+   - analyze your message for **emotions** and **sarcasm**,
+   - generate a supportive response, and
+   - display it instantly.  
+4. Use **Reset** to clear chat history.
 
-1. Open the web interface in your browser
-2. Type your message in the chat input
-3. The bot will:
-   - Analyze your message for emotions and sarcasm
-   - Generate an appropriate response
-   - Display the response in the chat interface
-4. Use the reset button to clear the chat history
+---
 
 ## Technical Details
+- **Framework:** Flask  
+- **DL/NLP:** PyTorch, Hugging Face Transformers  
+- **Emotion Model:** Custom attention-based classifier  
+- **Generator:** Fine-tuned DistilGPT2
 
-The application uses:
-- Flask for the web server
-- PyTorch for machine learning models
-- Transformers library for NLP tasks
-- Custom attention-based emotion classification
-- Fine-tuned DistilGPT2 for response generation
+---
 
-## Note
+## Configuration Notes
+Some model paths may be configured as absolute paths in `app.py`. Update them to match your environment:
+\`\`\`python
+EMOTION_MODEL_PATH = "path/to/models/Emotion_model"
+SARCASM_MODEL_PATH = "path/to/models/sarcasm_model"
+GEN_MODEL_PATH     = "path/to/models/therabot-distilgpt2"
+\`\`\`
 
-The model paths in the application are currently set to absolute paths. You may need to modify these paths in `app.py` to match your system's directory structure:
+---
 
-- `EMOTION_MODEL_PATH`
-- `SARCASM_MODEL_PATH`
-- `gen_model_path`
-
-
+## License & Disclaimer
+TheraBot is intended for educational and research purposes and is **not a substitute for professional mental health services**. Use responsibly.
