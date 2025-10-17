@@ -35,10 +35,10 @@ TheraBot is an AI-driven virtual therapist that detects emotions and sarcasm in 
 > Place these images in the same folder as `README.md` (or update the paths).
 
 ### Example 1 — Emotional Support Interaction  
-![TheraBot UI 1](Screenshot 2025-04-24 132215.png)
+![TheraBot Interface](Screenshot%202025-04-24%20132215.png)
 
 ### Example 2 — Empathetic Conversation  
-![TheraBot UI 2](./6d2ce302-766d-4492-9379-dbf05791d159.png)
+![TheraBot UI 2](Screenshot%202025-04-24%20132321.png)
 
 ---
 
